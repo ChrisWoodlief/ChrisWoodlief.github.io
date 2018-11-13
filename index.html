@@ -1,1 +1,57 @@
-<div>hi!!</div>
+
+
+<img src="image.jpg" style='max-width:900px; width:90%;display: block;
+    margin-left: auto;
+    margin-right: auto;'>
+    
+<div id='time' style='position: absolute; 
+   top: 260px; color:white;font-size:28px; left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  width: 100px;'></div>
+
+<script language="javascript">
+  function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        var displayString = getDateDiffObject(duration).displayString;
+        display.textContent = displayString;
+        duration -= 1000;
+    }, 1000);
+  }
+  
+  function getDateDiffObject(deltaMs, absoluteDiff){
+      var deltaSeconds = deltaMs/1000;
+      
+      var days = Math.floor(deltaSeconds / 86400);
+      deltaSeconds -= days * 86400;
+
+      var hours = Math.floor(deltaSeconds / 3600) % 24;
+      deltaSeconds -= hours * 3600;
+
+      var minutes = Math.floor(deltaSeconds / 60) % 60;
+      deltaSeconds -= minutes * 60;
+
+      var seconds = Math.floor(deltaSeconds % 60);
+
+      var displayString = '';
+      displayString = days + ' days ';
+      displayString += hours + ' hours ';
+      displayString += minutes + ' minute' + (minutes > 1 && 's' || '') + ' ';
+      displayString += seconds + ' seconds ';
+
+
+      return {days: days, hours: hours, seconds: seconds, totalMsDifference: deltaMs, displayString: displayString};
+  }
+
+  window.onload = function () {
+    console.log('hi');
+    var a = new Date(); // Current date now.
+    var b = new Date(2018, 10, 28, 12, 0, 0, 0); //new Date(year, month, day, hours, minutes, seconds, milliseconds)
+    var msDiff = (b-a); // Difference in milliseconds.
+    var display = document.querySelector('#time');
+    startTimer(msDiff, display);
+  };
+
+</script>
